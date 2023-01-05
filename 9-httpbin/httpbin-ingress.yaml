@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1 
+kind: Ingress
+metadata:
+  name: demo-get
+  namespace: httpbin
+  annotations:
+    konghq.com/strip-path: "true"
+    # konghq.com/protocols: https
+    # konghq.com/https-redirect-status-code: "301"
+    # nginx.ingress.kubernetes.io/app-root: /
+    # nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    # nginx.ingress.kubernetes.io/permanent-redirect-code: "301"
+spec:
+  ingressClassName: "kong"
+  rules:
+  - http:
+    # host: myfqdn
+      paths:
+      - path: /get
+        pathType: Prefix
+        # pathType: ImplementationSpecific
+        backend:
+          service:
+            name: httpbin
+            port:
+              number: 80
+  # tls:
+  # - hosts:
+  #   - myfqdn
+  #   secretName: my-secret-for-cert
