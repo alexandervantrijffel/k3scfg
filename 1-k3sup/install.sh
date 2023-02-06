@@ -7,9 +7,9 @@ mv -f $HOME/.kube/config $HOME/.kube/config.bak
 # k3s comes with the servicelb load balancer
 # as alternative to metallb
 
-export IP=${1:-myip}
-export SSHUSER=${2:-myuser}
-export CONTEXT=${3:-mycontext}
+export IP=${1:-<myip>}
+export SSHUSER=${2:-<myuser>}
+export CONTEXT=${3:-<mycontext>}
 
 echo Installing k3s on $IP, connecting to ssh with user $SSHUSER and creating kube context $CONTEXT
 
