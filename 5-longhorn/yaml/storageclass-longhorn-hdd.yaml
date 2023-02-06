@@ -1,0 +1,21 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+    name: longhorn-hdd
+    namespace: longhorn-system
+            
+provisioner: driver.longhorn.io
+# add Retain policy so that the pv is not deleted when the deployment+pvc are delete
+# instructions for binding the pv to a new deployment: https://stackoverflow.com/questions/60976472/how-can-i-retain-a-persistencevolume-in-longhorn/60986463#60986463
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+parameters:
+  numberOfReplicas: "1"
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+  fromBackup: ""
+  diskSelector: "hdd"
+# diskSelector: "ssd,fast"
+# nodeSelector: "storage,fast"
+# recurringJobs: '[{"name":"snap", "task":"snapshot", "cron":"*/1 * * * *", "retain":1},
+#                   {"name":"backup", "task":"backup", "cron":"*/2 * * * *", "retain":1,
+#                    "labels": {"interval":"2m"}}]'

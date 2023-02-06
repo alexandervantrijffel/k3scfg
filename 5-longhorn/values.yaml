@@ -1,0 +1,25 @@
+defaultSettings:
+  # backupTarget: s3://backupbucket@us-east-1/backupstore
+  # backupTargetCredentialSecret: minio-secret
+  createDefaultDiskLabeledNodes: true
+    # defaultDataPath: <my-data-path>
+  # replicaSoftAntiAffinity: false
+  # storageOverProvisioningPercentage: 600
+  # storageMinimalAvailablePercentage: 15
+  upgradeChecker: true
+  defaultReplicaCount: 2
+  defaultDataLocality: disabled
+  # defaultLonghornStaticStorageClass: longhorn-static-example
+  # backupstorePollInterval: 500
+  # taintToleration: key1=value1:NoSchedule; key2:NoExecute
+  # systemManagedComponentsNodeSelector: "label-key1:label-value1"
+  # priorityClass: high-priority
+  # autoSalvage: false
+  # disableSchedulingOnCordonedNode: false
+  # replicaZoneSoftAntiAffinity: false
+  # volumeAttachmentRecoveryPolicy: never
+  # nodeDownPodDeletionPolicy: do-nothing
+  # mkfsExt4Parameters: -O ^64bit,^metadata_csum
+  # guaranteedEngineManagerCpu: 15
+  # guaranteedReplicaManagerCpu: 15
+  # orphanAutoDeletion: false

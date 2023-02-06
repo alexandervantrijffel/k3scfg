@@ -1,0 +1,19 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+    name: longhorn-durable
+    namespace: longhorn-system
+    annotations:
+    # make this class the default storage class
+      storageclass.kubernetes.io/is-default-class: "true"
+            
+provisioner: driver.longhorn.io
+# add Retain policy so that the pv is not deleted when the deployment+pvc are deleted
+# instructions for binding the pv to a new deployment: https://stackoverflow.com/questions/60976472/how-can-i-retain-a-persistencevolume-in-longhorn/60986463#60986463
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+parameters:
+  numberOfReplicas: "2"
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+  fromBackup: ""
+# diskSelector: "ssd,fast"
