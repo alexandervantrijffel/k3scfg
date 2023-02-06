@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: certificate
+  namespace: default
+spec:
+  dnsNames:
+    - "*.<my.domain>"
+  secretName: wildcard-certificate
+  issuerRef:
+    name: global-issuer
+    kind: ClusterIssuer
