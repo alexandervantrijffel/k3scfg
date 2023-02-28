@@ -1,4 +1,5 @@
 #!/bin/sh
+
 mkdir -p $HOME/.kube
 mv -f $HOME/.kube/config $HOME/.kube/config.bak &> /dev/null
 
@@ -12,7 +13,8 @@ export SSHUSER=${2:-<my-user>}
 export CONTEXT=${3:-<my-context>}
 
 echo Installing k3sup
-curl -sLS https://get.k3sup.dev | sh sudo install k3sup /usr/local/bin/ && rm k3sup
+curl -sLS https://get.k3sup.dev | sh
+sudo install k3sup /usr/local/bin/ && rm k3sup
 
 echo Installing k3s on $IP, connecting to ssh with user $SSHUSER and creating kube context $CONTEXT
 
