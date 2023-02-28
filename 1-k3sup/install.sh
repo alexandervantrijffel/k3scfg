@@ -11,6 +11,9 @@ export IP=${1:-<my-ip>}
 export SSHUSER=${2:-<my-user>}
 export CONTEXT=${3:-<my-context>}
 
+echo Installing k3sup
+curl -sLS https://get.k3sup.dev | sh sudo install k3sup /usr/local/bin/ && rm k3sup
+
 echo Installing k3s on $IP, connecting to ssh with user $SSHUSER and creating kube context $CONTEXT
 
 # k3s is installed with load balancer ServiceLB (successor of klipper)
