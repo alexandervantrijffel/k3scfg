@@ -1,4 +1,7 @@
 #!/bin/sh
+set -e
+
+BASEDIR=$(dirname "$0")
 
 mkdir -p $HOME/.kube
 mv -f $HOME/.kube/config $HOME/.kube/config.bak &> /dev/null
@@ -21,22 +24,19 @@ echo Installing k3s on $IP, connecting to ssh with user $SSHUSER and creating ku
 # k3s is installed with load balancer ServiceLB (successor of klipper)
 k3sup install --ip $IP --user $SSHUSER --context $CONTEXT --k3s-extra-args '--disable traefik --disable servicelb' --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
 
+sh $BASEDIR/install-post-actions.sh
+
+
 k3sup ready \
   --context $CONTEXT \
   --kubeconfig $HOME/.kube/config
 
 chmod 600 $HOME/.kube/config
 
-# disable servicelb for existing k3s clusters https://devops.stackexchange.com/questions/16070/where-does-k3s-store-its-var-lib-kubelet-config-yaml-file
-helm repo add metallb https://metallb.github.io/metallb || true
-helm repo update
-helm install metallb metallb/metallb
+sh $BASEDIR/install-metallb.sh
 
 # uninstall
 # /usr/local/bin/k3s-uninstall.sh
-
-# local install
-# k3sup install --local --context dbglocal --no-extras --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
 
 # for viewing logs, increase fs inotify limit
 scp ./rc-local.service $SSHUSER@$IP:/tmp/

@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 BASEDIR=$(dirname "$0")
 
 mkdir -p $HOME/.kube
@@ -27,16 +29,10 @@ k3sup ready \
 
 chmod 600 $HOME/.kube/config
 
-# disable servicelb for existing k3s clusters https://devops.stackexchange.com/questions/16070/where-does-k3s-store-its-var-lib-kubelet-config-yaml-file
-helm repo add metallb https://metallb.github.io/metallb || true
-helm repo update
-helm install metallb metallb/metallb
+sh $BASEDIR/install-metallb.sh
 
 # uninstall
 # /usr/local/bin/k3s-uninstall.sh
-
-# local install
-# k3sup install --local --context dbglocal --no-extras --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
 
 # for viewing logs, increase fs inotify limit
 cp $BASEDIR/rc-local.service /tmp/
