@@ -23,6 +23,10 @@ k3sup install \
   --merge --local-path $HOME/.kube/config \
   --cluster
 
+# if the --disable args failed, add them manually to /etc/systemd/system/k3s.service at ExecStart, example:
+#   '--disable' \
+#   'servicelb'
+
 k3sup ready \
   --context $CONTEXT \
   --kubeconfig $HOME/.kube/config

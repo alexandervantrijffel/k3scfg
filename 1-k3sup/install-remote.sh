@@ -22,7 +22,7 @@ sudo install k3sup /usr/local/bin/ && rm k3sup
 echo Installing k3s on $IP, connecting to ssh with user $SSHUSER and creating kube context $CONTEXT
 
 # k3s is installed with load balancer ServiceLB (successor of klipper)
-k3sup install --ip $IP --user $SSHUSER --context $CONTEXT --k3s-extra-args '--disable traefik --disable servicelb' --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
+k3sup install --ip $IP --user $SSHUSER --context $CONTEXT --no-extras --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
 
 sh $BASEDIR/install-post-actions.sh
 
