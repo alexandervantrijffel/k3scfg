@@ -40,4 +40,6 @@ ssh $SSHUSER@$IP sudo mv /tmp/rc-local.service /etc/systemd/system/rc-local.serv
 scp ./rc.local $SSHUSER@$IP:/tmp/
 ssh $SSHUSER@$IP sudo mv /tmp/rc.local /etc/
 
-ssh $SSHUSER@$IP sudo systemctl enable rc-local
+ssh $SSHUSER@$IP sudo systemctl enable rc-local.service
+
+ssh $SSHUSER@$IP echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
