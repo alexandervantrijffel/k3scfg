@@ -11,7 +11,7 @@ curl -sLS https://get.k3sup.dev | sh sudo install k3sup /usr/local/bin/ && rm k3
 echo Installing k3s locally and creating kube context $CONTEXT
 
 # k3s is installed with load balancer ServiceLB (successor of klipper)
-k3sup install --local --context $CONTEXT --k3s-extra-args '--disable traefik --disable servicelb' --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
+k3sup install --local --context $CONTEXT --k3s-extra-args '--disable servicelb' --k3s-channel latest --merge --local-path $HOME/.kube/config --cluster
 
 k3sup ready \
   --context $CONTEXT \
